@@ -1,0 +1,85 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+
+using namespace std;
+
+int main() {
+    int playerguess, choice, number;
+    
+    cout << "\n\t\tWelcome to Guess the Number Game!" << endl;
+
+    while (true) {
+        cout << "\n Menu \n";
+        cout << "1. Easy Level (15 attempts)\n";
+        cout << "2. Medium Level (7 attempts)\n";
+        cout << "3. Difficult Level (2 attempts)\n";
+        cout << "4. Exit the Game\n" << endl;
+        line: 
+        cout << "Enter enter the difficulty level: "; 
+        cin >> choice; 
+
+        if (choice == 4) {
+            cout << "Thanks for playing! Goodbye!" << endl;
+            break;
+        }
+
+        srand(time(0));  
+        number = 1 + (rand() % 100);  
+
+        int attempts;
+        if (choice == 1) {
+            attempts = 15;
+            cout << "You have 15 attempts to guess the correct number from 1 to 100." << endl;
+        } else if (choice == 2) {
+            attempts = 7;
+            cout << "You have 7 attempts to guess the correct number from 1 to 100." << endl;
+        } else if (choice == 3) {
+            attempts = 2;
+            cout << "You have 2 attempts to guess the correct number from 1 to 100." << endl;
+        } else {
+            cout << "Invalid choice! Please enter a number between 1 and 4." << endl;
+            continue;
+        }
+
+        
+        for (int i = 1; i <= attempts; i++) {
+            if (choice == 1 && i == 11) {
+                cout << "You have 5 attempts left!" << endl;
+            }
+            if (choice == 2 && i == 5) {
+                cout << "You have 3 attempts left!" << endl;
+            }
+            if ((choice == 1 && i == attempts - 1) || (choice == 2 && i == attempts - 1) || (choice == 3 && i == attempts - 1)) {
+                cout << "This is your final attempt!" << endl;
+            }
+
+            cout << "\nPlease guess the number: ";
+            cin >> playerguess;
+
+            if (playerguess > number) {
+                if (playerguess - number > 5) {
+                    cout << "Your guess is too high. Try again." << endl;
+                } else {
+                    cout << "You're close, but your guess is slightly high. Try again." << endl;
+                }
+            } else if (playerguess < number) {
+                if (number - playerguess > 5) {
+                    cout << "Your guess is too low. Try again." << endl;
+                } else {
+                    cout << "You're close, but your guess is slightly too low. Try again." << endl;
+                }
+            } else {
+                cout << "Well played! Your guess is correct!" << endl;
+                break;
+            }
+
+        
+            if (i == attempts) {
+                cout << "You've used all your attempts! The correct number was: " << number << endl;
+            }
+        }
+    }
+
+    return 0;
+}
