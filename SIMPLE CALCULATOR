@@ -1,0 +1,64 @@
+#include <iostream>
+#include <limits>
+using namespace std;
+
+double getNumber(string prompt) {
+    double num;
+    cout << prompt;
+    while (!(cin >> num)) {
+        cout << "Invalid input! Please enter a valid number: ";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    return num;
+}
+
+void calculate(double a, double b, char op) {
+    double result;
+    switch(op) {
+        case '+':
+            result = a + b;
+            cout << "The result is " << result << endl;
+            break;
+        case '-':
+            result = a - b;
+            cout << "The result is " << result << endl;
+            break;
+        case '*':
+            result = a * b;
+            cout << "The result is " << result << endl;
+            break;
+        case '/':
+            if (b == 0)
+                cout << "Error: Division by zero is not allowed!" << endl;
+            else {
+                result = a / b;
+                cout << "The result is " << result << endl;
+            }
+            break;
+        default:
+            cout << "Invalid operator! Please use one of (+, -, *, /)." << endl;
+    }
+}
+
+int main() {
+    double a, b;
+    char op;
+    char repeat;
+
+    do {
+        a = getNumber("Enter the first number: ");
+        b = getNumber("Enter the second number: ");
+        cout << "Choose an operator (+, -, *, /): ";
+        cin >> op;
+
+        calculate(a, b, op);
+
+        cout << "Would you like to perform another operation? (y/n): ";
+        cin >> repeat;
+
+    } while (repeat == 'y' || repeat == 'Y');
+
+    cout << "Thank you for using the calculator!" << endl;
+    return 0;
+}
